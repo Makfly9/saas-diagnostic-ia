@@ -40,19 +40,22 @@ export default function DiagnosticForm() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
   
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === "checkbox"
-        ? checked
-          ? [...(prevData[name as keyof typeof prevData] as string[] || []), value]
-          : (prevData[name as keyof typeof prevData] as string[] || []).filter((v) => v !== value)
-        : value
-    }));
+    setFormData((prevData) => {
+      // Vérification que prevData[name] existe et est bien un tableau de strings
+      if (type === "checkbox") {
+        const prevValues = Array.isArray(prevData[name as keyof typeof prevData])
+          ? (prevData[name as keyof typeof prevData] as string[])
+          : [];
+  
+        return {
+          ...prevData,
+          [name]: checked ? [...prevValues, value] : prevValues.filter((v) => v !== value)
+        };
+      } else {
+        return { ...prevData, [name]: value };
+      }
+    });
   };
-  
-  
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
