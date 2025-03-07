@@ -18,7 +18,7 @@ const objectifs = [
 ];
 
 export default function DiagnosticForm() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{ [key: string]: any }>({
     nom_entreprise: "",
     email: "",
     secteur_activite: "",
@@ -42,8 +42,8 @@ export default function DiagnosticForm() {
     if (type === "checkbox") {
       setFormData((prevData) => ({
         ...prevData,
-        [name]: checked ? [...prevData[name], value] : prevData[name].filter((v) => v !== value)
-      }));
+        [name]: checked ? [...(prevData[name] || []), value] : (prevData[name] || []).filter((v) => v !== value)
+    }));    
     } else {
       setFormData((prevData) => ({ ...prevData, [name]: value }));
     }
