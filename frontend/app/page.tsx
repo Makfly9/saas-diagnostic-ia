@@ -37,7 +37,7 @@ export default function DiagnosticForm() {
   const [leadEmail, setLeadEmail] = useState("");
   const [emailConfirmed, setEmailConfirmed] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     if (type === "checkbox") {
       setFormData((prevData) => ({
