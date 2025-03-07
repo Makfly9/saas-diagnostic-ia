@@ -44,11 +44,12 @@ export default function DiagnosticForm() {
       ...prevData,
       [name]: type === "checkbox"
         ? checked
-          ? [...(prevData[name] || []), value]
-          : (prevData[name] || []).filter((v) => v !== value)
+          ? [...(prevData[name as keyof typeof prevData] || []), value]
+          : (prevData[name as keyof typeof prevData] || []).filter((v) => v !== value)
         : value
     }));
   };
+  
   
 
   const handleSubmit = async (e) => {
