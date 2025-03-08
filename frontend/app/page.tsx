@@ -80,64 +80,67 @@ export default function DiagnosticForm() {
       setLoading(false);
     };
 
-  return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow rounded">
-      <h2 className="text-xl font-semibold mb-4">Diagnostic IA</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="nom_entreprise" placeholder="Nom de l'entreprise" value={formData.nom_entreprise} onChange={handleChange} className="border p-2 rounded w-full mb-2" />
-        <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} className="border p-2 rounded w-full mb-2" />
-        
-        <select name="secteur_activite" onChange={handleChange} className="border p-2 rounded w-full mb-2">
-          <option value="">Secteur d'activité</option>
-          {secteurs.map((s) => <option key={s} value={s}>{s}</option>)}
-        </select>
-        
-        <select name="taille_entreprise" onChange={handleChange} className="border p-2 rounded w-full mb-2">
-          <option value="">Taille de l'entreprise</option>
-          {tailles.map((t) => <option key={t} value={t}>{t}</option>)}
-        </select>
-        
-        <fieldset className="mb-2">
-          <legend className="font-semibold">Défis</legend>
-          {defis.map((d) => (
-            <label key={d} className="block">
-              <input type="checkbox" name="defis" value={d} onChange={handleChange} /> {d}
+    return (
+      <div className="max-w-2xl mx-auto p-6 bg-white shadow rounded">
+        <h2 className="text-xl font-semibold mb-4">Diagnostic IA</h2>
+        <form onSubmit={handleSubmit}>
+          <input type="text" name="nom_entreprise" placeholder="Nom de l'entreprise" value={formData.nom_entreprise} onChange={handleChange} className="border p-2 rounded w-full mb-2" />
+          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} className="border p-2 rounded w-full mb-2" />
+          
+          <select name="secteur_activite" onChange={handleChange} className="border p-2 rounded w-full mb-2">
+            <option value="">Secteur d'activité</option>
+            {secteurs.map((s) => <option key={s} value={s}>{s}</option>)}
+          </select>
+          
+          <select name="taille_entreprise" onChange={handleChange} className="border p-2 rounded w-full mb-2">
+            <option value="">Taille de l'entreprise</option>
+            {tailles.map((t) => <option key={t} value={t}>{t}</option>)}
+          </select>
+          
+          <fieldset className="mb-2">
+            <legend className="font-semibold">Défis</legend>
+            {defis.map((d) => (
+              <label key={d} className="block">
+                <input type="checkbox" name="defis" value={d} onChange={handleChange} /> {d}
+              </label>
+            ))}
+          </fieldset>
+          
+          <fieldset className="mb-2">
+            <legend className="font-semibold">Objectifs</legend>
+            {objectifs.map((o) => (
+              <label key={o} className="block">
+                <input type="checkbox" name="objectifs" value={o} onChange={handleChange} /> {o}
+              </label>
+            ))}
+          </fieldset>
+          
+          <select name="budget" onChange={handleChange} className="border p-2 rounded w-full mb-2">
+            <option value="">Budget</option>
+            {budgets.map((b) => <option key={b} value={b}>{b}</option>)}
+          </select>
+    
+          <div className="mb-4">
+            <label className="block text-gray-700 font-semibold mb-2">
+              Si vous pouviez automatiser ou améliorer une seule chose grâce à l’intelligence artificielle dans votre entreprise aujourd’hui, quel serait ce changement et quel impact souhaiteriez-vous en retirer ?
             </label>
-          ))}
-        </fieldset>
-        
-        <fieldset className="mb-2">
-          <legend className="font-semibold">Objectifs</legend>
-          {objectifs.map((o) => (
-            <label key={o} className="block">
-              <input type="checkbox" name="objectifs" value={o} onChange={handleChange} /> {o}
-            </label>
-          ))}
-        </fieldset>
-        
-        <select name="budget" onChange={handleChange} className="border p-2 rounded w-full mb-2">
-          <option value="">Budget</option>
-          {budgets.map((b) => <option key={b} value={b}>{b}</option>)}
-        </select>
-
-        <div className="mb-4">
-  <label className="block text-gray-700 font-semibold mb-2">
-    Si vous pouviez automatiser ou améliorer une seule chose grâce à l’intelligence artificielle dans votre entreprise aujourd’hui, quel serait ce changement et quel impact souhaiteriez-vous en retirer ?
-  </label>
-  <textarea
-    name="besoin_ia_principal"
-    placeholder="Décrivez ici votre besoin IA principal..."
-    value={formData.besoin_ia_principal}
-    onChange={handleChange}
-    className="border p-2 rounded w-full h-24"
-  />
-</div>
-
-        
-        <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded w-full mt-4" disabled={loading}>{loading ? "Analyse en cours..." : "Soumettre"}</button>
-      </form>
-      {error && <p className="text-red-500 mt-4">{error}</p>}
-      {diagnostic && !emailConfirmed && (
+            <textarea
+              name="besoin_ia_principal"
+              placeholder="Décrivez ici votre besoin IA principal..."
+              value={formData.besoin_ia_principal}
+              onChange={handleChange}
+              className="border p-2 rounded w-full h-24"
+            />
+          </div>
+    
+          <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded w-full mt-4" disabled={loading}>
+            {loading ? "Analyse en cours..." : "Soumettre"}
+          </button>
+        </form>
+    
+        {error && <p className="text-red-500 mt-4">{error}</p>}
+    
+        {diagnostic && !emailConfirmed && (
           <div className="mt-6 p-4 bg-gray-100 rounded">
             <h3 className="text-lg font-semibold">Recevez votre diagnostic IA</h3>
             <p className="mb-4">Entrez votre email pour voir votre analyse IA personnalisée.</p>
@@ -157,16 +160,6 @@ export default function DiagnosticForm() {
             </button>
           </div>
         )}
-        
-        {diagnostic && emailConfirmed && (
-          <div className="mt-6 p-4 bg-gray-100 rounded">
-            <h3 className="text-lg font-semibold">Résultat du Diagnostic</h3>
-            <p><strong>Entreprise :</strong> {diagnostic.nom_entreprise}</p>
-            <p><strong>Secteur :</strong> {diagnostic.secteur}</p>
-            <p><strong>Analyse :</strong> {diagnostic.analyse}</p>
-          </div>
-        )}
-        
-    </div>
-  );
-}
+      </div>
+    );
+    
