@@ -74,8 +74,9 @@ export default function DiagnosticForm() {
       
       const data = await response.json();
       setDiagnostic(data.diagnostic);
-    } catch (error) {
+    } catch (error: any) {  // ✅ Forcer TypeScript à comprendre que c'est une erreur
       setError(error.message);
+    }    
     } finally {
       setLoading(false);
     }
