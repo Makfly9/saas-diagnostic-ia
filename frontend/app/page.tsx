@@ -78,7 +78,7 @@ export default function DiagnosticForm() {
       setError(error.message); // ✅ Correction ici (pas besoin de commentaire en fin de ligne)
     } finally {
       setLoading(false);
-    }
+    };
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow rounded">
