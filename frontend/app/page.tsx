@@ -62,25 +62,23 @@ export default function DiagnosticForm() {
     setError(null);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/diagnostic/", {
+      const response = await fetch("/api/diagnostic", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
-      
+    
       if (!response.ok) {
         throw new Error("Erreur lors de la soumission du formulaire");
       }
-      
+    
       const data = await response.json();
       setDiagnostic(data.diagnostic);
-    } catch (error: any) {  // ✅ Forcer TypeScript à comprendre que c'est une erreur
-      setError(error.message);
-    }    
+    } catch (error: any) {
+      setError(error.message); // ✅ Correction ici (pas besoin de commentaire en fin de ligne)
     } finally {
       setLoading(false);
     }
-  };
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow rounded">
