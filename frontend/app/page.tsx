@@ -154,8 +154,7 @@ export default function DiagnosticForm() {
             <button
               onClick={() => setEmailConfirmed(true)}
               className="bg-blue-500 text-white py-2 px-4 rounded w-full"
-              disabled={!leadEmail}
-            />
+              disabled={!leadEmail}>
               Voir mon diagnostic
             </button>
           </div>
